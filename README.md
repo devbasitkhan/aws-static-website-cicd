@@ -40,7 +40,6 @@ Amazon S3 static website
 ├── projects.html
 ├── contact.html
 ├── styles.css
-├── script.js
 ├── buildspec.yml
 └── README.md
 ```
