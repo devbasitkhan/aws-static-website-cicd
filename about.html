@@ -1,25 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Basit Khan</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Architecture of the AWS static website CI/CD project.">
+  <title>Architecture | AWS Static Website CI/CD</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section class="about">
-        <h1>About Me</h1>
-        <p>Hi, I'm Basit Khan, an aspiring cloud computing specialist. I have a passion for technology and a keen interest in cloud computing. I am currently pursuing the AWS Cloud Practitioner Essentials course to enhance my skills and knowledge in this field.</p>
-    </section>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="index.html">AWS CI/CD Demo</a>
+      <div class="nav-links"><a href="index.html">Overview</a><a aria-current="page" href="about.html">Architecture</a><a href="projects.html">Pipeline</a><a href="contact.html">Repository</a></div>
+    </nav>
+  </header>
+  <main class="section container">
+    <p class="eyebrow">Architecture</p>
+    <h1>Four components, one delivery path</h1>
+    <p class="lede">The project keeps the application deliberately simple so the deployment workflow remains easy to inspect.</p>
+    <div class="flow" aria-label="Pipeline architecture">
+      <div class="flow-step"><strong>1. GitHub</strong><span>Stores the website source.</span></div>
+      <div class="flow-step"><strong>2. CodePipeline</strong><span>Orchestrates the delivery workflow.</span></div>
+      <div class="flow-step"><strong>3. CodeBuild</strong><span>Packages the static artifact using the buildspec.</span></div>
+      <div class="flow-step"><strong>4. Amazon S3</strong><span>Hosts the deployed static assets.</span></div>
+    </div>
+    <div class="note"><strong>Security boundary:</strong> AWS credentials do not belong in source control. Pipeline access should be granted through appropriately scoped IAM roles.</div>
+  </main>
+  <footer><div class="container">AWS Static Website CI/CD</div></footer>
 </body>
 </html>
