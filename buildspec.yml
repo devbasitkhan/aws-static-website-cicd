@@ -3,8 +3,11 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "Copying files to S3..."
+      - echo "Preparing static website artifact..."
+
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
+  exclude-paths:
+    - 'README.md'
+  discard-paths: no
