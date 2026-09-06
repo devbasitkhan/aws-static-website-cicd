@@ -1,44 +1,61 @@
-# Static Website CI/CD Pipeline
+# AWS Static Website CI/CD Pipeline
 
-This repository contains the code and configuration for a CI/CD pipeline that deploys a static website to Amazon S3 using AWS CodePipeline and CodeBuild.
+A compact CI/CD project demonstrating automated delivery of a static website from GitHub to Amazon S3 using AWS CodePipeline and CodeBuild.
 
-## Functionality
+## Architecture
 
-- **Source Stage:** Retrieves the website's source code from a GitHub repository.
-- **Build Stage:** Builds the static website using AWS CodeBuild (or copies files directly if no build is needed).
-- **Deploy Stage:** Deploys the built website files to an Amazon S3 bucket.
+```text
+Developer push
+     |
+     v
+   GitHub
+     |
+     v
+AWS CodePipeline
+     |
+     v
+AWS CodeBuild
+     |
+     v
+Build artifact
+     |
+     v
+Amazon S3 static website
+```
 
-## Prerequisites
+## What this project demonstrates
 
-- An AWS account with appropriate permissions.
-- An Amazon S3 bucket configured for static website hosting.
-- A GitHub repository containing the static website files.
-- AWS CodePipeline and CodeBuild configured.
+- Source-controlled static web assets
+- Automated pipeline execution after repository changes
+- AWS CodeBuild artifact packaging through `buildspec.yml`
+- Deployment of static assets to an S3-hosted website
+- A simple separation between application source and delivery infrastructure
 
-## How to Use
+## Repository structure
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone [https://github.com/BasitKhan-Cloud/aws-static-website-cicd.git](https://github.com/BasitKhan-Cloud/aws-static-website-cicd.git)
-    ```
+```text
+.
+├── index.html
+├── about.html
+├── projects.html
+├── contact.html
+├── styles.css
+├── script.js
+├── buildspec.yml
+└── README.md
+```
 
-2.  **Configure AWS:**
-    - Create an S3 bucket for your website.
-    - Configure the bucket for static website hosting.
-    - Create or use an existing IAM role with necessary permissions for CodePipeline and CodeBuild.
-    - Create a CodePipeline pipeline using the AWS Management Console or AWS CLI, pointing to this repository.
-    - Configure the CodeBuild stage to use the `buildspec.yml` file in the repository's root.
+## Pipeline flow
 
-3.  **Make Changes:**
-    - Modify the website files in the repository.
-    - Commit and push the changes to your GitHub repository.
+1. A change is pushed to this GitHub repository.
+2. AWS CodePipeline retrieves the source revision.
+3. AWS CodeBuild executes the repository's `buildspec.yml`.
+4. The static files are collected as the build artifact.
+5. The pipeline deploys the artifact to the configured S3 bucket.
 
-4.  **Automatic Deployment:**
-    - CodePipeline will automatically trigger a new pipeline execution to build and deploy the updated website to S3.
+The sample website intentionally has no compilation step. CodeBuild acts as the packaging stage so the project stays focused on the delivery workflow rather than a frontend framework.
 
 ## `buildspec.yml`
-
-The `buildspec.yml` file in the root of the repository defines the build commands for CodeBuild.
 
 ```yaml
 version: 0.2
@@ -46,8 +63,40 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "Copying files to S3..."
+      - echo "Preparing static website artifact..."
+
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
+  exclude-paths:
+    - 'README.md'
+  discard-paths: no
+```
+
+## AWS prerequisites
+
+You need:
+
+- an AWS account
+- an S3 bucket configured for static website hosting
+- an AWS CodePipeline pipeline connected to this repository
+- an AWS CodeBuild project configured to use `buildspec.yml`
+- IAM permissions allowing the pipeline/build roles to access the required source, build and S3 resources
+
+Do not commit AWS access keys or other credentials to this repository. Use IAM roles and the credential mechanisms provided by AWS.
+
+## Run locally
+
+No build tooling is required. Clone the repository and serve the directory with any local static HTTP server, for example:
+
+```bash
+git clone https://github.com/devbasitkhan/aws-static-website-cicd.git
+cd aws-static-website-cicd
+python -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+## Scope
+
+This is a focused infrastructure/deployment exercise rather than a production application. The important part of the repository is the GitHub -> CodePipeline -> CodeBuild -> S3 delivery path and the configuration that supports it.
