@@ -1,37 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basit Khan - Aspiring Cloud Computing Specialist</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Static website deployed through an AWS CodePipeline and CodeBuild CI/CD workflow.">
+  <title>AWS Static Website CI/CD | Abdul Basit Khan</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section class="hero">
-        <h1>Hi, I'm Basit Khan</h1>
-        <p>Aspiring Cloud Computing Specialist</p>
-        <a href="projects.html" class="button">See My Work</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="index.html">AWS CI/CD Demo</a>
+      <div class="nav-links">
+        <a aria-current="page" href="index.html">Overview</a>
+        <a href="about.html">Architecture</a>
+        <a href="projects.html">Pipeline</a>
+        <a href="contact.html">Repository</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <p class="eyebrow">Cloud / DevOps project</p>
+      <h1>Static website delivery with AWS CI/CD</h1>
+      <p class="lede">A small deployment project demonstrating how source changes can move from GitHub through AWS CodePipeline and CodeBuild to an Amazon S3-hosted website.</p>
+      <div class="actions">
+        <a class="button" href="projects.html">View pipeline flow</a>
+        <a class="button secondary" href="https://github.com/devbasitkhan/aws-static-website-cicd">View source on GitHub</a>
+      </div>
     </section>
-    <section class="content">
-        <div class="container">
-            <h2>Welcome to My Portfolio</h2>
-            <p>Explore my projects and get to know more about my journey in cloud computing.</p>
-        </div>
+
+    <section class="section container">
+      <h2>What this repository demonstrates</h2>
+      <div class="grid">
+        <article class="card"><h3>Source</h3><p>Static HTML, CSS and JavaScript versioned in GitHub.</p></article>
+        <article class="card"><h3>Build</h3><p>CodeBuild reads <code>buildspec.yml</code> and prepares the deployment artifact.</p></article>
+        <article class="card"><h3>Deploy</h3><p>CodePipeline delivers the artifact to an S3 bucket configured for static website hosting.</p></article>
+      </div>
     </section>
-    <footer>
-        <p>&copy; 2025 Basit Khan. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+  </main>
+
+  <footer><div class="container">Built as a focused AWS CI/CD engineering exercise.</div></footer>
 </body>
 </html>
