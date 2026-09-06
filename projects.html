@@ -1,32 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Basit Khan</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Delivery flow for the AWS static website CI/CD project.">
+  <title>Pipeline | AWS Static Website CI/CD</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section class="projects">
-        <h1>My Projects</h1>
-        <div class="container">
-            <p>Here are some of the projects I have worked on:</p>
-            <ul>
-                <li>Project 1: AWS Cloud Infrastructure Setup</li>
-                <li>Project 2: Serverless Application Development</li>
-                <li>Project 3: Cloud Security Implementation</li>
-            </ul>
-        </div>
-    </section>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="index.html">AWS CI/CD Demo</a>
+      <div class="nav-links"><a href="index.html">Overview</a><a href="about.html">Architecture</a><a aria-current="page" href="projects.html">Pipeline</a><a href="contact.html">Repository</a></div>
+    </nav>
+  </header>
+  <main class="section container">
+    <p class="eyebrow">Delivery workflow</p>
+    <h1>From commit to static deployment</h1>
+    <div class="timeline">
+      <article><span>01</span><div><h2>Push a source change</h2><p>Website files and pipeline configuration are versioned in GitHub.</p></div></article>
+      <article><span>02</span><div><h2>Trigger CodePipeline</h2><p>The source stage retrieves the new revision and starts the configured pipeline.</p></div></article>
+      <article><span>03</span><div><h2>Package with CodeBuild</h2><p>CodeBuild reads <code>buildspec.yml</code> and emits the static website artifact.</p></div></article>
+      <article><span>04</span><div><h2>Deploy to S3</h2><p>The deployment stage publishes the artifact to the S3 website bucket.</p></div></article>
+    </div>
+  </main>
+  <footer><div class="container">AWS Static Website CI/CD</div></footer>
 </body>
 </html>
